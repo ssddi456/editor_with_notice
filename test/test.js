@@ -13,7 +13,7 @@ describe('editor with note', function () {
 
         console.log('\nclear up');
         var tag = '--  '
-        mongodb.MongoClient.connect('mongodb://' + conf.mongo.host + ':' + conf.mongo.port +'/' + conf.mongo.db, {
+        mongodb.MongoClient.connect('mongodb://' + conf.mongo.host + ':' + conf.mongo.port + '/' + conf.mongo.db, {
             server: {
                 poolSize: 10,
             }
@@ -43,6 +43,8 @@ describe('editor with note', function () {
     });
 
     describe('note management', function () {
+
+        var insert_res;
         it('insert a note', function (done) {
             req.post({
                 url: `${base_url}/add`,
@@ -53,7 +55,8 @@ describe('editor with note', function () {
                 }
             }, function (err, resp, body) {
 
-                body = JSON.parse(body);
+                insert_res = body = JSON.parse(body);
+                console.log(body);
 
                 assert.equal(body.err, 0, 'unexcepted error info');
 
@@ -61,6 +64,46 @@ describe('editor with note', function () {
             })
 
         });
+
+        it('add tag for a note', function (done) {
+            req.post({
+                url: `${base_url}/add_tag`,
+                form: {
+                    id: insert_res.note_id,
+                    tag: 'test'
+                }
+            }, function (err, resp, body) {
+
+                body = JSON.parse(body);
+                console.log(body);
+
+                assert.equal(body.err, 0, 'unexcepted error info');
+
+                done()
+            })
+
+        });
+        it('add tag for a section', function (done) {
+            req.post({
+                url: `${base_url}/section_add_tag`,
+                form: {
+                    id: insert_res.section_ids[0],
+                    tag: 'test'
+                }
+            }, function (err, resp, body) {
+
+                assert(err == null, 'no request error');
+
+                body = JSON.parse(body);
+                console.log(err, body);
+                assert.equal(body.err, 0, 'unexcepted error info');
+
+                done()
+            })
+
+        });
+
+
     });
 
     describe('word cuts', function () {
@@ -97,5 +140,28 @@ describe('editor with note', function () {
             })
 
         });
+
+        it('analyze a paragragh', function (done) {
+            this.timeout(4000);
+
+            req.get({
+                url: `${base_url}/analyze_words`,
+                qs: {
+                    content: ' 可直接按照分词程序命令格式运行可执行的jar包\n\
+  自行编译需要安装Gradle, 然后在项目根目录执行gradle build, 生成文件在build/libs下\n\
+（thulac需要模型的支持，需要将下载的模型放到当前目录下）'
+                }
+            }, function (err, resp, body) {
+
+                body = JSON.parse(body);
+                console.log(body);
+                assert.equal(body.err, 0, 'unexcepted error info');
+
+                done()
+            })
+
+        });
+
+
     });
 });

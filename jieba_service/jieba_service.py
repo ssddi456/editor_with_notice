@@ -23,11 +23,12 @@ class jiebaClient(wsClient):
         res = jieba.cut(event['content'])
         self.client.emit('cut_result', { 'seq' : event['seq'], 'result' : list(res) })
 
-    def on_analyse(self, *arg):
+    def on_analyze_words(self, *arg):
         event = arg[0]
 
         res = jieba.analyse.extract_tags(event['content'])
-        self.client.emit('analyse_result', { 'seq' : event['seq'], 'result' : list(res) })
+        print res
+        self.client.emit('analyze_result', { 'seq' : event['seq'], 'result' : list(res) })
 
 
 jieba_client = jiebaClient()
