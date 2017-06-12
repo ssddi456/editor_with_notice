@@ -61,3 +61,4 @@ var regist_event = function ( callto_name, callback_name ) {
 module.exports.handle = handle;
 module.exports.do_cut = regist_event('cut_words', 'cut_result');
 module.exports.do_analyze = regist_event('analyze_words', 'analyze_result');
+module.exports.do_tokenize = regist_event('tokenize_words', 'tokenize_result');

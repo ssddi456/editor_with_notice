@@ -1,5 +1,20 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  - console.log('what is append?')
+  .container
+    .row
+      .col-md-8
+        #words
+      #tags.col-md-4
+        #page_tags
+        hr
+        #section_tags
+      
+
+block js
+  script.
+    var note = !{JSON.stringify(note||{})};
+    var sections = !{JSON.stringify(sections||[]) };
+
+  script(src="/javascripts/index.js")

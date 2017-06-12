@@ -1,0 +1,7 @@
+.container 
+    ol.breadcrumb
+        li
+            a(href="/notes/list") list
+        if note
+            li
+                a(href="javascript:void(0)")= note.title

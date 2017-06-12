@@ -162,6 +162,27 @@ describe('editor with note', function () {
 
         });
 
+        it('tokenize a paragragh', function (done) {
+            this.timeout(4000);
+
+            req.get({
+                url: `${base_url}/tokenize_words`,
+                qs: {
+                    content: ' 可直接按照分词程序命令格式运行可执行的jar包\n\
+  自行编译需要安装Gradle, 然后在项目根目录执行gradle build, 生成文件在build/libs下\n\
+（thulac需要模型的支持，需要将下载的模型放到当前目录下）'
+                }
+            }, function (err, resp, body) {
+
+                body = JSON.parse(body);
+                console.log(body);
+                assert.equal(body.err, 0, 'unexcepted error info');
+
+                done()
+            })
+
+        });
+
 
     });
 });

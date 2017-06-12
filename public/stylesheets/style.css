@@ -1,8 +1,39 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+#words{
+
 }
+.section{
+
+}
+.section:hover{
+  background-color: #ccf
+}
+.section.current_section{
+  background-color: #cff;
+}
+
+.word:hover{
+  background-color: #99f;
+}
+.word.label-primary{
+  background-color: #99f;
+}
+
+#tags {
+  position: fixed;
+  right: 0;
+}
+#page_tags {
+  
+}
+#section_tags {
+  position: relative;
+}
+
+.tag {
+  line-height: 2em;
+}
+

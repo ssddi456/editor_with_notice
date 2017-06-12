@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  .container
+    .row
+      .col-md-8
+        #notes
+          table.table
+            thead
+              tr
+                th
+                th name
+                th origin url
+            tbody
+              each note in notes
+                tr
+                  td
+                  td
+                    a(href="/notes/note?_id=#{note._id}")= note.title
+                  td
+                    a(href="#{note.url}")= note.url
+      .col-md-4
+        #all_tags
+
+
+block js
+  script(src="/javascripts/note_list.js")

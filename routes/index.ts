@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
 
 
 var notes = require('./notes');
 
 router.use('/notes',notes.router);
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
 
 /**
  * 搞一个服务用于提供文本解析的api
